@@ -1,8 +1,8 @@
 package xml
 
 import (
-	"testing"
 	"github.com/moovweb/gokogiri/help"
+	"testing"
 )
 
 func TestParseDocumentFragmentBasic(t *testing.T) {

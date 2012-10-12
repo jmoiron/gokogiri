@@ -1,10 +1,10 @@
 package html
 
 import (
-	"testing"
-	"io/ioutil"
 	"bytes"
 	"github.com/moovweb/gokogiri/help"
+	"io/ioutil"
+	"testing"
 )
 
 func TestParseDocument_CP1252(t *testing.T) {

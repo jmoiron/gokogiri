@@ -1,4 +1,5 @@
 package mem
+
 /*
 #cgo pkg-config: libxml-2.0
 #include <libxml/xmlversion.h>

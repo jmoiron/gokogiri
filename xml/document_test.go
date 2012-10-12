@@ -1,13 +1,13 @@
 package xml
 
 import (
-	"testing"
+	"fmt"
 	"github.com/moovweb/gokogiri/help"
-	"os"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strings"
-	"fmt"
+	"testing"
 )
 
 func TestDocuments(t *testing.T) {
