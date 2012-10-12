@@ -4,7 +4,7 @@ package css
 
 import (
 	"fmt"
-	"github.com/moovweb/rubex"
+	"regexp"
 	"strings"
 )
 
@@ -60,7 +60,7 @@ const (
 )
 
 var pattern [NUM_LEXEMES]string
-var matcher [NUM_LEXEMES]*rubex.Regexp
+var matcher [NUM_LEXEMES]*regexp.Regexp
 
 func init() {
 	// some overlap in here, but it'll make the parsing functions clearer
@@ -109,7 +109,7 @@ func init() {
 	pattern[PARENT_OF] = `\s*>`
 	pattern[ANCESTOR_OF] = `\s+`
 	for i, p := range pattern {
-		matcher[i] = rubex.MustCompile(`\A` + p)
+		matcher[i] = regexp.MustCompile(`\A` + p)
 	}
 }
 
