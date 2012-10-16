@@ -12,6 +12,7 @@ import "runtime"
 
 type Expression struct {
 	Ptr *C.xmlXPathCompExpr
+	xpath string
 }
 
 func Compile(path string) (expr *Expression) {
@@ -25,9 +26,13 @@ func Compile(path string) (expr *Expression) {
 	if ptr == nil {
 		return
 	}
-	expr = &Expression{Ptr: ptr}
+	expr = &Expression{Ptr: ptr, xpath: path}
 	runtime.SetFinalizer(expr, (*Expression).Free)
 	return
+}
+
+func (exp *Expression) String() string {
+	return exp.xpath
 }
 
 func (exp *Expression) Free() {
