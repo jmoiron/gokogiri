@@ -22,13 +22,16 @@ char *check_xpath_syntax(const char *xpath) {
 }
 */
 import "C"
-import "unsafe"
-import . "github.com/moovweb/gokogiri/util"
-import "runtime"
-import "errors"
+
+import (
+	"errors"
+	. "github.com/jmoiron/gokogiri/util"
+	"runtime"
+	"unsafe"
+)
 
 type Expression struct {
-	Ptr *C.xmlXPathCompExpr
+	Ptr   *C.xmlXPathCompExpr
 	xpath string
 }
 

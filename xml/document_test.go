@@ -2,7 +2,7 @@ package xml
 
 import (
 	"fmt"
-	"github.com/moovweb/gokogiri/help"
+	"github.com/jmoiron/gokogiri/help"
 	"io/ioutil"
 	"os"
 	"path/filepath"

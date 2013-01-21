@@ -1,7 +1,7 @@
 package html
 
 import "testing"
-import "github.com/moovweb/gokogiri/help"
+import "github.com/jmoiron/gokogiri/help"
 
 func TestCrazyMove(t *testing.T) {
 	input := `

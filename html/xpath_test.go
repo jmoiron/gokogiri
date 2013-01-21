@@ -1,10 +1,12 @@
 package html
 
-import "testing"
-
+import (
+	"github.com/jmoiron/gokogiri/help"
+	"testing"
+)
 
 func TestUnfoundFuncInXpath(t *testing.T) {
-	defer CheckXmlMemoryLeaks(t)
+	defer help.CheckXmlMemoryLeaks(t)
 
 	doc, err := Parse([]byte("<html><body><div><h1></div>"), DefaultEncodingBytes, nil, DefaultParseOption, DefaultEncodingBytes)
 
@@ -22,7 +24,7 @@ func TestUnfoundFuncInXpath(t *testing.T) {
 }
 
 func TestXpathEmptyResult(t *testing.T) {
-	defer CheckXmlMemoryLeaks(t)
+	defer help.CheckXmlMemoryLeaks(t)
 
 	doc, err := Parse([]byte("<html><body><div><h1></div>"), DefaultEncodingBytes, nil, DefaultParseOption, DefaultEncodingBytes)
 

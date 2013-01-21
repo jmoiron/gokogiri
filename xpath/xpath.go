@@ -2,6 +2,7 @@ package xpath
 
 /* 
 #cgo pkg-config: libxml-2.0
+#include <time.h>
 #include <libxml/xpath.h> 
 #include <libxml/xpathInternals.h>
 #include <libxml/parser.h>
@@ -12,11 +13,12 @@ xmlNode* fetchNode(xmlNodeSet *nodeset, int index) {
 */
 import "C"
 
-import "time"
-import "unsafe"
-import . "github.com/moovweb/gokogiri/util"
-import "runtime"
-import "errors"
+import (
+	"errors"
+	. "github.com/jmoiron/gokogiri/util"
+	"runtime"
+	"unsafe"
+)
 
 type XPath struct {
 	ContextPtr *C.xmlXPathContext
@@ -75,15 +77,6 @@ func (xpath *XPath) Evaluate(nodePtr unsafe.Pointer, xpathExpr *Expression) (nod
 		}
 	}
 	return
-}
-
-func (xpath *XPath) SetDeadline(deadline *time.Time) {
-	if deadline == nil {
-		C.xmlXPathContextSetDeadline(xpath.ContextPtr, C.time_t(0))
-	} else {
-		t := deadline.Unix()
-		C.xmlXPathContextSetDeadline(xpath.ContextPtr, C.time_t(t))
-	}
 }
 
 func (xpath *XPath) Free() {

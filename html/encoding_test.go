@@ -2,7 +2,7 @@ package html
 
 import (
 	"bytes"
-	"github.com/moovweb/gokogiri/help"
+	"github.com/jmoiron/gokogiri/help"
 	"io/ioutil"
 	"testing"
 )

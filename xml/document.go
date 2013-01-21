@@ -9,8 +9,8 @@ import "C"
 
 import (
 	"errors"
-	. "github.com/moovweb/gokogiri/util"
-	"github.com/moovweb/gokogiri/xpath"
+	. "github.com/jmoiron/gokogiri/util"
+	"github.com/jmoiron/gokogiri/xpath"
 	//"runtime"
 	"unsafe"
 )

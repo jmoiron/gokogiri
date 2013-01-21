@@ -1,7 +1,7 @@
 package html
 
 import (
-	"github.com/moovweb/gokogiri/help"
+	"github.com/jmoiron/gokogiri/help"
 	"testing"
 )
 
@@ -98,7 +98,7 @@ func TestInsertMyselfBefore(t *testing.T) {
 
 	div := divs[0]
 	div.InsertBefore(div)
-	
+
 	expected := `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 <head>
@@ -112,10 +112,10 @@ func TestInsertMyselfBefore(t *testing.T) {
 </html>
 `
 	if expected != doc.String() {
-		t.Error("doc is not expected:\n", doc.String(), "\n", expected)
+		t.Errorf("Expected:\n%s\n\n--- Got:\n%s\n", expected, doc.String())
 	}
 	doc.Free()
-	CheckXmlMemoryLeaks(t)
+	help.CheckXmlMemoryLeaks(t)
 }
 
 func TestInsertMyselfAfter(t *testing.T) {
@@ -144,7 +144,7 @@ func TestInsertMyselfAfter(t *testing.T) {
 
 	div := divs[0]
 	div.InsertAfter(div)
-	
+
 	expected := `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 <head>
@@ -158,10 +158,10 @@ func TestInsertMyselfAfter(t *testing.T) {
 </html>
 `
 	if expected != doc.String() {
-		t.Error("doc is not expected:\n", doc.String(), "\n", expected)
+		t.Errorf("Expected:\n%s\n\n--- Got:\n%s\n", expected, doc.String())
 	}
 	doc.Free()
-	CheckXmlMemoryLeaks(t)
+	help.CheckXmlMemoryLeaks(t)
 }
 
 func TestAddMyselfChild(t *testing.T) {
@@ -190,7 +190,7 @@ func TestAddMyselfChild(t *testing.T) {
 
 	div := divs[0]
 	div.AddChild(div)
-	
+
 	expected := `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 <head>
@@ -207,7 +207,7 @@ func TestAddMyselfChild(t *testing.T) {
 		t.Error("doc is not expected:\n", doc.String(), "\n", expected)
 	}
 	doc.Free()
-	CheckXmlMemoryLeaks(t)
+	help.CheckXmlMemoryLeaks(t)
 }
 
 func TestRemoveMeRemoveParent(t *testing.T) {
@@ -238,10 +238,10 @@ func TestRemoveMeRemoveParent(t *testing.T) {
 	nodes, _ := h1.Search("..")
 	h1.Remove()
 	nodes, _ = h1.Search("..")
-	if (len(nodes) != 1) {
+	if len(nodes) != 1 {
 		t.Error("removed node should have a parent , i.e. its document")
 	}
 	nodes[0].Remove()
 	doc.Free()
-	CheckXmlMemoryLeaks(t)
+	help.CheckXmlMemoryLeaks(t)
 }

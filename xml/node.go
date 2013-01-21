@@ -4,12 +4,10 @@ package xml
 //#include <string.h>
 import "C"
 
-import "time"
-
 import (
 	"errors"
-	. "github.com/moovweb/gokogiri/util"
-	"github.com/moovweb/gokogiri/xpath"
+	. "github.com/jmoiron/gokogiri/util"
+	"github.com/jmoiron/gokogiri/xpath"
 	"unsafe"
 )
 
@@ -113,7 +111,8 @@ type Node interface {
 	Duplicate(int) Node
 
 	Search(interface{}) ([]Node, error)
-	SearchByDeadline(interface{}, *time.Time) ([]Node, error)
+	// This was trying to use xmlXPathContextSetDeadline, which doesn't exist
+	//SearchByDeadline(interface{}, *time.Time) ([]Node, error)
 
 	//SetParent(Node)
 	//IsComment() bool
@@ -490,6 +489,7 @@ func (xmlNode *XmlNode) Search(data interface{}) (result []Node, err error) {
 	return
 }
 
+/*
 func (xmlNode *XmlNode) SearchByDeadline(data interface{}, deadline *time.Time) (result []Node, err error) {
 	xpathCtx := xmlNode.Document.DocXPathCtx()
 	xpathCtx.SetDeadline(deadline)
@@ -497,6 +497,7 @@ func (xmlNode *XmlNode) SearchByDeadline(data interface{}, deadline *time.Time) 
 	xpathCtx.SetDeadline(nil)
 	return
 }
+*/
 
 /*
 func (xmlNode *XmlNode) Replace(interface{}) error {
@@ -649,7 +650,7 @@ func (xmlNode *XmlNode) addChild(node Node) (err error) {
 	if ret < 0 {
 		return
 	} else if ret == 0 {
-		if ! xmlNode.Document.RemoveUnlinkedNode(nodePtr) {
+		if !xmlNode.Document.RemoveUnlinkedNode(nodePtr) {
 			C.xmlUnlinkNodeWithCheck((*C.xmlNode)(nodePtr))
 		}
 		C.xmlAddChild(xmlNode.Ptr, (*C.xmlNode)(nodePtr))
@@ -680,7 +681,7 @@ func (xmlNode *XmlNode) addPreviousSibling(node Node) (err error) {
 	if ret < 0 {
 		return
 	} else if ret == 0 {
-		if ! xmlNode.Document.RemoveUnlinkedNode(nodePtr) {
+		if !xmlNode.Document.RemoveUnlinkedNode(nodePtr) {
 			C.xmlUnlinkNodeWithCheck((*C.xmlNode)(nodePtr))
 		}
 		C.xmlAddPrevSibling(xmlNode.Ptr, (*C.xmlNode)(nodePtr))
@@ -710,7 +711,7 @@ func (xmlNode *XmlNode) addNextSibling(node Node) (err error) {
 	if ret < 0 {
 		return
 	} else if ret == 0 {
-		if ! xmlNode.Document.RemoveUnlinkedNode(nodePtr) {
+		if !xmlNode.Document.RemoveUnlinkedNode(nodePtr) {
 			C.xmlUnlinkNodeWithCheck((*C.xmlNode)(nodePtr))
 		}
 		C.xmlAddNextSibling(xmlNode.Ptr, (*C.xmlNode)(nodePtr))
@@ -773,7 +774,6 @@ func xmlUnlinkNodeCallback(nodePtr unsafe.Pointer, gonodePtr unsafe.Pointer) {
 	xmlNode.Document.AddUnlinkedNode(nodePtr)
 }
 
-
 func grow(buffer []byte, n int) (newBuffer []byte) {
 	newBuffer = makeSlice(2*cap(buffer) + n)
 	copy(newBuffer, buffer)
@@ -802,7 +802,7 @@ func (xmlNode *XmlNode) isAccestor(nodePtr unsafe.Pointer) int {
 		}
 		p := unsafe.Pointer(parentPtr)
 		if p == nodePtr {
-			 return 1
+			return 1
 		}
 	}
 	return 0
